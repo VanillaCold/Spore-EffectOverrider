@@ -1,0 +1,16 @@
+#To override effects in your mod, you need to create a new property list file in the EffectOverrides folder.
+#It must include both the ReplaceEffects and EffectsToReplaceWith properties.
+
+
+#This is a list of all the effects that are to be overwritten by your mod
+uint32s ReplaceEffects
+	hash(_effect_editor)
+end
+
+
+#This is a list of the effects your mod replaces the afforementioned effects with.
+#There must be the same number of effects in both uint32 arrays, or else an error will occur.
+#Alongside this, you cannot overwrite an effect with one that it overrides.
+uint32s EffectsToReplaceWith
+	hash(casual_galaxy)
+end

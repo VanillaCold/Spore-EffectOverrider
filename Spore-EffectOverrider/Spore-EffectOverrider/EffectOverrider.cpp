@@ -74,7 +74,14 @@ void EffectOverrider::SetupOverrides()
 			{
 				for (int i = 0; i < numEffectsToOverride; i++)
 				{
-					effectOverrides.emplace(effectsToOverride[i], overrideEffects[i]);
+					if (EffectsManager.HasVisualEffect(overrideEffects[i], 0))
+					{
+						effectOverrides.emplace(effectsToOverride[i], overrideEffects[i]);
+					}
+					else
+					{
+						throw std::length_error("Replacement effect does not exist!");
+					}
 				}
 			}
 			else

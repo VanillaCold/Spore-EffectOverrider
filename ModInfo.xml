@@ -1,0 +1,3 @@
+<mod displayName="Effect Overrider" unique="SporeEffectOverrider" description="A mod that allows developers to easily overwrite existing Spore effects in their own mods" installerSystemVersion="1.0.1.2" hasCustomInstaller="false" dllsBuild="2.5.278">
+	<prerequisite>Spore-EffectOverrider.dll</prerequisite>
+</mod>

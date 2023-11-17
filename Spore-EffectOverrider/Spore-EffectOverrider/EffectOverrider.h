@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Spore\BasicIncludes.h>
+#include <unordered_map>
 
 #define EffectOverriderPtr intrusive_ptr<EffectOverrider>
 
@@ -21,5 +22,5 @@ public:
 
 private:
 	void SetupOverrides();
-	static map<uint32_t, uint32_t> effectOverrides;
+	static hash_map<uint32_t, uint32_t> effectOverrides;
 };

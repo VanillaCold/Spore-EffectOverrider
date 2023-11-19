@@ -89,7 +89,7 @@ void EffectOverrider::SetupOverrides()
 }
 
 hash_map<uint32_t, uint32_t> EffectOverrider::effectOverrides; //Add static variables at end of CPP file.
-
+int EffectOverrider::numIterations;
 
 // For internal use, do not modify.
 int EffectOverrider::AddRef()
@@ -111,4 +111,3 @@ void* EffectOverrider::Cast(uint32_t type) const
 	return nullptr;
 }
 
-int EffectOverrider::numIterations;

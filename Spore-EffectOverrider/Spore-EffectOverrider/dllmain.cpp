@@ -7,23 +7,16 @@
 
 void Initialize()
 {
-	// This method is executed when the game starts, before the user interface is shown
-	// Here you can do things such as:
-	//  - Add new cheats
-	//  - Add new simulator classes
-	//  - Add new game modes
-	//  - Add new space tools
-	//  - Change materials
-	//Swarm::cEffectsManager::GetDirectoryAndEffectIndex
+	//Initialize the effect overrider.
 	EffectOverrider* overrider = new EffectOverrider();
 }
 
 member_detour(EffectOverrideDetour, Swarm::cEffectsManager, int(uint32_t, uint32_t))
 {
-	int detoured(uint32_t instanceId, uint32_t groupId) //Detouring the function to get an effect index...
+	int detoured(uint32_t instanceId, uint32_t groupId) //Detouring the function for obtaining effect indexes...
 	{
-		uint32_t effID = EffectOverrider::GetOverrideEffect(instanceId);
-		return original_function(this, effID, groupId);
+		uint32_t effID = EffectOverrider::GetOverrideEffect(instanceId); //Get the new instance ID for the effect.
+		return original_function(this, effID, groupId); //And call the original function with the new instance ID.
 	}
 };
 
@@ -34,9 +27,8 @@ void Dispose()
 
 void AttachDetours()
 {
+	//Attach the detour.
 	EffectOverrideDetour::attach(GetAddress(Swarm::cEffectsManager, GetDirectoryAndEffectIndex));
-	// Call the attach() method on any detours you want to add
-	// For example: cViewer_SetRenderType_detour::attach(GetAddress(cViewer, SetRenderType));
 }
 
 

@@ -29,8 +29,18 @@ uint32_t EffectOverrider::GetOverrideEffect(uint32_t instanceID)
 	if (effectFind != effectOverrides.end()) //If the effect is in the override list,
 	{
 		uint32_t newEffect = effectFind->second; //Get the ID of the new effect.
-		return GetOverrideEffect(newEffect); //And recursively iterate through the effect map for until an effect which is not overwritten is found.
+
+		numIterations++; //Increase the number of iterations, used to prevent endless loops.
+		
+		if (numIterations > 1000000) //If an endless loop is detected:
+		{
+			MessageBox(NULL, LPCWSTR(u"Endless loop achieved; make sure your effect isn't overriden by what it's ovewriting!"), LPCWSTR(u"Error overriding effect"), 0x00000010L); //Inform the user.
+			throw std::exception("Endless loop achieved; make sure your effect isn't overriden by what it's ovewriting!"); //And then, throw an exception.
+		}
+		//If no loop was achieved yet,
+		return GetOverrideEffect(newEffect); //Recursively iterate through the effect map for until an effect which is not overwritten is found.
 	}
+	numIterations = 0; //Reset the iteration count.
 	return instanceID; //Return the effect if it has no override.
 }
 
@@ -100,3 +110,5 @@ void* EffectOverrider::Cast(uint32_t type) const
 	CLASS_CAST(EffectOverrider);
 	return nullptr;
 }
+
+int EffectOverrider::numIterations;

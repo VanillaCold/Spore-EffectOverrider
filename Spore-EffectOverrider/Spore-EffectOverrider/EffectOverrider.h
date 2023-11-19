@@ -23,4 +23,6 @@ public:
 private:
 	void SetupOverrides();
 	static hash_map<uint32_t, uint32_t> effectOverrides;
+
+	static int numIterations;
 };

@@ -20,24 +20,9 @@ void Initialize()
 
 member_detour(EffectOverrideDetour, Swarm::cEffectsManager, int(uint32_t, uint32_t))
 {
-	int detoured(uint32_t instanceId, uint32_t groupId)
+	int detoured(uint32_t instanceId, uint32_t groupId) //Detouring the function to get an effect index...
 	{
-		uint32_t effID = instanceId;
-		uint32_t prevEffID = instanceId;
-		int cap = 0;
-		do
-		{
-			prevEffID = effID;
-			effID = EffectOverrider::GetOverrideEffect(effID);
-			cap++;
-			if (cap > 1000000)
-			{
-				MessageBox(NULL, LPCWSTR(u"Endless loop achieved; make sure your effect isn't overriden by what it's ovewriting!"), LPCWSTR(u"Error overriding effect"), 0x00000010L);
-				throw std::exception("Endless loop achieved; make sure your effect isn't overriden by what it's ovewriting!");
-			}
-		} while (effID != prevEffID);
-
-
+		uint32_t effID = EffectOverrider::GetOverrideEffect(instanceId);
 		return original_function(this, effID, groupId);
 	}
 };
